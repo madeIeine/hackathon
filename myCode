@@ -1,38 +1,43 @@
+// Grabbing the list of US states and their capitals
 var stateName = getColumn("US States", "State Name");
 var stateCapital = getColumn("US States", "Capital");
 
+// When the user hits the start button, screen changes to the game screen and updates it
 onEvent("startButton", "click", function() {
   setScreen("gameScreen");
-  updateGameScreen();
+  updateGameScreen(); // calling a function to update the game screen
 });
 
+// This function updates the game screen with new state names and capitals
 function updateGameScreen() {
-  playSound("sound://category_background/synthesize.mp3", false);
+  playSound("sound://category_background/synthesize.mp3", false); // playing some background music
   
-  // Map stateName to their capitals
+  // Mapping state names to their capitals for displaying
   var stateCapitalNames = stateName.map(function(state, index) {
     return "The capital of " + state + " is: " + stateCapital[index];
   });
   
-  // Loop through each text area and update its content
+  // Looping through each text area and updating its content
   for (var i = 1; i <= 3; i++) {
     var index = randomNumber(0, stateName.length - 1);
     
-    // Add a conditional to check if the state and capital are not already displayed
+    // Checking if the state and capital are not already displayed
     if (getText("text_area" + i) !== stateName[index]) {
       setText("text_area" + i, stateName[index]);
       setText("answer_" + i, stateCapitalNames[index]);
     } else {
-      // If the state and capital are already displayed, decrement i to repeat the loop iteration
-      i--;
+      // If the state and capital are already displayed, another one is tried
+      i--; // decrementing i to repeat the loop iteration
     }
   }
 }
 
+// When the user clicks the resultButton, it shows them the resultScreen
 onEvent("resultButton", "click", function() {
   setScreen("resultScreen");
 });
 
+// When the user clicks the playAgainButton, it takes them back to the startScreen.
 onEvent("playAgainButton", "click", function() {
   setScreen("startScreen");
 });
