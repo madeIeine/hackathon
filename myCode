@@ -9,12 +9,16 @@ onEvent("startButton", "click", function() {
 function updateGameScreen() {
   playSound("sound://category_background/synthesize.mp3", false);
   
+  // Map stateName to their capitals
+  var stateCapitalNames = stateName.map(function(state, index) {
+    return "The capital of " + state + " is: " + stateCapital[index];
+  });
+  
   // Loop through each text area and update its content
   for (var i = 1; i <= 3; i++) {
     var index = randomNumber(0, stateName.length - 1);
     setText("text_area" + i, stateName[index]);
-    setText("answer_" + i, "The capital of " + stateName[index]);
-    setText("new_answer" + i, "is: " + stateCapital[index]);
+    setText("answer_" + i, stateCapitalNames[index]);
   }
 }
 
