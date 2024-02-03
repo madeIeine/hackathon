@@ -1,0 +1,27 @@
+var stateName = getColumn("US States", "State Name");
+var stateCapital = getColumn("US States", "Capital");
+
+onEvent("startButton", "click", function() {
+  setScreen("gameScreen");
+  updateGameScreen();
+});
+
+function updateGameScreen() {
+  playSound("sound://category_background/synthesize.mp3", false);
+  
+  // Loop through each text area and update its content
+  for (var i = 1; i <= 3; i++) {
+    var index = randomNumber(0, stateName.length - 1);
+    setText("text_area" + i, stateName[index]);
+    setText("answer_" + i, "The capital of " + stateName[index]);
+    setText("new_answer" + i, "is: " + stateCapital[index]);
+  }
+}
+
+onEvent("resultButton", "click", function() {
+  setScreen("resultScreen");
+});
+
+onEvent("playAgainButton", "click", function() {
+  setScreen("startScreen");
+});
