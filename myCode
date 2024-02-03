@@ -17,8 +17,15 @@ function updateGameScreen() {
   // Loop through each text area and update its content
   for (var i = 1; i <= 3; i++) {
     var index = randomNumber(0, stateName.length - 1);
-    setText("text_area" + i, stateName[index]);
-    setText("answer_" + i, stateCapitalNames[index]);
+    
+    // Add a conditional to check if the state and capital are not already displayed
+    if (getText("text_area" + i) !== stateName[index]) {
+      setText("text_area" + i, stateName[index]);
+      setText("answer_" + i, stateCapitalNames[index]);
+    } else {
+      // If the state and capital are already displayed, decrement i to repeat the loop iteration
+      i--;
+    }
   }
 }
 
